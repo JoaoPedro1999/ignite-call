@@ -1,4 +1,4 @@
-import { Box, styled } from '@buma-ui/react-components'
+import { Box, Text, styled } from '@buma-ui/react-components'
 
 export const Form = styled(Box, {
   display: 'grid',
