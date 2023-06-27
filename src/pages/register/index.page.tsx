@@ -46,7 +46,7 @@ export default function Register() {
     resolver: zodResolver(registerFormSchema),
   })
 
-  const { query } = useRouter()
+  const { query, push } = useRouter()
 
   useEffect(() => {
     if (query.username) {
@@ -60,6 +60,8 @@ export default function Register() {
         name: data.name,
         username: data.username,
       })
+
+      await push('/register/connect-calendar')
     } catch (err) {
       if (err instanceof AxiosError && err?.response?.data?.message) {
         alert(err.response.data.message)

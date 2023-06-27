@@ -1,8 +1,12 @@
 import React from 'react'
 import { Roboto } from 'next/font/google'
-import { globalStyles } from '../styles/global'
-import type { AppProps } from 'next/app'
+import { SessionProvider } from 'next-auth/react'
+
 import Head from 'next/head'
+
+import { globalStyles } from '../styles/global'
+
+import type { AppProps } from 'next/app'
 
 const roboto = Roboto({
   subsets: ['latin'],
@@ -12,15 +16,18 @@ const roboto = Roboto({
 
 globalStyles()
 
-export default function MyApp({ Component, pageProps }: AppProps) {
+export default function MyApp({
+  Component,
+  pageProps: { session, ...pageProps },
+}: AppProps) {
   return (
-    <>
+    <SessionProvider session={session}>
       <Head>
         <title>Ignite Call</title>
       </Head>
       <main className={`${roboto.className}`}>
         <Component {...pageProps} />
       </main>
-    </>
+    </SessionProvider>
   )
 }
