@@ -11,13 +11,17 @@ import { ConnectBox, ConnectItem, AuthError } from './styles'
 
 export default function ConnectCalendar() {
   const { status } = useSession()
-  const { query } = useRouter()
+  const { query, push } = useRouter()
 
   const hasAuthError = !!query.error
   const isSignedId = status === 'authenticated'
 
   async function handleConnectCalendar() {
     await signIn('google')
+  }
+
+  async function handleNavigateToNextStep() {
+    await push('/register/time-intervals')
   }
 
   return (
@@ -58,7 +62,11 @@ export default function ConnectCalendar() {
           </AuthError>
         )}
 
-        <Button type="submit" disabled={!isSignedId}>
+        <Button
+          type="submit"
+          disabled={!isSignedId}
+          onClick={handleNavigateToNextStep}
+        >
           Próximo passo
           <ArrowRight />
         </Button>
